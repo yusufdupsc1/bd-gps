@@ -17,8 +17,7 @@
       "schedule": "0 3 15 12 *"
     }
   ],
-  "buildCommand": "pnpm run build",
-  "installCommand": "pnpm install",
-  "framework": "nextjs",
-  "regions": ["iad1"]
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "framework": "nextjs"
 }
