@@ -224,9 +224,9 @@ export function AttendanceClient({
         toast.success(`Attendance saved for ${students.length} students`);
       } else {
         toast.error(res.error || "Failed to save attendance");
-        if (res.fieldErrors) {
+        if (!res.success && res.fieldErrors) {
           Object.entries(res.fieldErrors).forEach(([field, messages]) => {
-            toast.error(`${field}: ${messages.join(", ")}`);
+            toast.error(`${field}: ${(messages as string[]).join(", ")}`);
           });
         }
       }
