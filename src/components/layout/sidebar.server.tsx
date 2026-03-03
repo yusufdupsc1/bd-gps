@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { type Session } from "next-auth";
 import {
   LayoutDashboard,
@@ -13,7 +12,6 @@ import {
   School,
   BookOpen,
   Bookmark,
-  FileText,
   ChevronRight,
   ChevronDown,
   ShieldCheck,
@@ -21,7 +19,6 @@ import {
   UserRound,
   ArchiveRestore,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { getDict } from "@/lib/i18n/getDict";
@@ -53,9 +50,24 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         icon: LayoutDashboard,
         roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
       },
-      { label: "Teacher Portal", href: "/dashboard/portal/teacher", icon: UserRound, roles: ["TEACHER"] },
-      { label: "Student Portal", href: "/dashboard/portal/student", icon: GraduationCap, roles: ["STUDENT"] },
-      { label: "Parent Portal", href: "/dashboard/portal/parent", icon: Users, roles: ["PARENT"] },
+      {
+        label: "Teacher Portal",
+        href: "/dashboard/portal/teacher",
+        icon: UserRound,
+        roles: ["TEACHER"],
+      },
+      {
+        label: "Student Portal",
+        href: "/dashboard/portal/student",
+        icon: GraduationCap,
+        roles: ["STUDENT"],
+      },
+      {
+        label: "Parent Portal",
+        href: "/dashboard/portal/parent",
+        icon: Users,
+        roles: ["PARENT"],
+      },
       {
         label: "Analytics",
         href: "/dashboard/analytics",
@@ -92,10 +104,30 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         icon: Bookmark,
         roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
       },
-      { label: "Teachers", href: "/dashboard/teachers", icon: Users, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"] },
-      { label: "Classes", href: "/dashboard/classes", icon: BookOpen, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"] },
-      { label: "Attendance", href: "/dashboard/attendance", icon: ClipboardCheck, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
-      { label: "Grades", href: "/dashboard/grades", icon: School, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
+      {
+        label: "Teachers",
+        href: "/dashboard/teachers",
+        icon: Users,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
+      },
+      {
+        label: "Classes",
+        href: "/dashboard/classes",
+        icon: BookOpen,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
+      },
+      {
+        label: "Attendance",
+        href: "/dashboard/attendance",
+        icon: ClipboardCheck,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
+      {
+        label: "Grades",
+        href: "/dashboard/grades",
+        icon: School,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
     ],
   },
   {
@@ -107,8 +139,18 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         icon: CreditCard,
         roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL"],
       },
-      { label: "Events", href: "/dashboard/events", icon: Calendar, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
-      { label: "Announcements", href: "/dashboard/announcements", icon: Bell, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
+      {
+        label: "Events",
+        href: "/dashboard/events",
+        icon: Calendar,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
+      {
+        label: "Announcements",
+        href: "/dashboard/announcements",
+        icon: Bell,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
     ],
   },
   {
@@ -186,32 +228,32 @@ const GOVT_PRIMARY_HIDDEN_NAV_HREFS = new Set<string>([
 ]);
 
 const sectionLabelMap: Record<string, string> = {
-    Overview: "overview",
-    Academic: "academic",
-    Administration: "administration",
-    System: "system",
+  Overview: "overview",
+  Academic: "academic",
+  Administration: "administration",
+  System: "system",
 };
 
 const itemLabelMap: Record<string, string> = {
-    Dashboard: "dashboard",
-    "Teacher Portal": "teacher_portal",
-    "Student Portal": "student_portal",
-    "Parent Portal": "parent_portal",
-    Analytics: "analytics",
-    Students: "student",
-    "All Students": "student",
-    "Student Reports": "reports",
-    Teachers: "assistant_teacher",
-    Attendance: "attendance",
-    Finance: "fees",
-    Events: "routine",
-    Grades: "result",
-    Governance: "governance",
-    Institution: "school_name",
-    Classes: "classes",
-    Subjects: "subjects",
-    Announcements: "notice",
-    Class: "class",
+  Dashboard: "dashboard",
+  "Teacher Portal": "teacher_portal",
+  "Student Portal": "student_portal",
+  "Parent Portal": "parent_portal",
+  Analytics: "analytics",
+  Students: "student",
+  "All Students": "student",
+  "Student Reports": "reports",
+  Teachers: "assistant_teacher",
+  Attendance: "attendance",
+  Finance: "fees",
+  Events: "routine",
+  Grades: "result",
+  Governance: "governance",
+  Institution: "school_name",
+  Classes: "classes",
+  Subjects: "subjects",
+  Announcements: "notice",
+  Class: "class",
 };
 
 export async function SidebarServer({ session }: { session: Session }) {
@@ -220,16 +262,17 @@ export async function SidebarServer({ session }: { session: Session }) {
   const dict = getDict(locale);
   const govtPrimaryMode = isGovtPrimaryModeEnabled();
   const userRole = (session.user as any)?.role ?? "";
-  
-  const userInitials = (session.user.name ?? "User")
-    ?.split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2) ?? "U";
+
+  const userInitials =
+    (session.user.name ?? "User")
+      ?.split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2) ?? "U";
 
   const t = (key: string) => dict.common[key] || key;
-  const tg = (key: string) => (dict.govtPrimary[key] || dict.common[key] || key);
+  const tg = (key: string) => dict.govtPrimary[key] || dict.common[key] || key;
 
   const localizeSection = (label: string) => {
     const key = sectionLabelMap[label];
@@ -237,8 +280,10 @@ export async function SidebarServer({ session }: { session: Session }) {
   };
 
   const localizeItem = (label: string) => {
-    if (govtPrimaryMode && label === "Teacher Portal") return t("assistant_teacher_portal");
-    if (govtPrimaryMode && label === "Institution") return t("primary_school_setup");
+    if (govtPrimaryMode && label === "Teacher Portal")
+      return t("assistant_teacher_portal");
+    if (govtPrimaryMode && label === "Institution")
+      return t("primary_school_setup");
     if (govtPrimaryMode && label === "Students") return t("student");
     if (govtPrimaryMode && label === "Teachers") return tg("assistant_teacher");
     if (govtPrimaryMode && label === "Classes") return t("primary_classes");
@@ -279,12 +324,17 @@ export async function SidebarServer({ session }: { session: Session }) {
       </div>
 
       {/* Navigation */}
-      <nav aria-label="Primary" className="flex-1 overflow-y-auto py-3 px-2 space-y-4">
+      <nav
+        aria-label="Primary"
+        className="flex-1 overflow-y-auto py-3 px-2 space-y-4"
+      >
         {NAV_SECTIONS.map((section) => {
           const visibleItems = section.items.filter(
             (item) =>
               (!item.roles || item.roles.includes(userRole)) &&
-              !(govtPrimaryMode && GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(item.href))
+              !(
+                govtPrimaryMode && GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(item.href)
+              ),
           );
           if (visibleItems.length === 0) return null;
 
@@ -298,7 +348,10 @@ export async function SidebarServer({ session }: { session: Session }) {
                   const visibleChildren = (item.children ?? []).filter(
                     (child) =>
                       (!child.roles || child.roles.includes(userRole)) &&
-                      !(govtPrimaryMode && GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(child.href))
+                      !(
+                        govtPrimaryMode &&
+                        GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(child.href)
+                      ),
                   );
 
                   if (visibleChildren.length === 0) {
@@ -310,7 +363,9 @@ export async function SidebarServer({ session }: { session: Session }) {
                         activeClassName="sidebar-active-item"
                       >
                         <item.icon className="h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">{localizeItem(item.label)}</span>
+                        <span className="truncate">
+                          {localizeItem(item.label)}
+                        </span>
                         {item.badge && (
                           <span className="ml-auto font-mono text-[10px] bg-destructive/10 text-destructive px-1.5 py-0.5 rounded">
                             {item.badge}
@@ -332,10 +387,12 @@ export async function SidebarServer({ session }: { session: Session }) {
                         activeClassName="sidebar-active-item"
                       >
                         <item.icon className="h-4 w-4 flex-shrink-0" />
-                        <span className="truncate">{localizeItem(item.label)}</span>
+                        <span className="truncate">
+                          {localizeItem(item.label)}
+                        </span>
                         <ChevronDown className="ml-auto h-3.5 w-3.5" />
                       </ActiveLink>
-                      
+
                       {/* We could potentially show children if we want, but it would be static.
                           Let's keep it simple as per instructions. */}
                     </div>
@@ -364,14 +421,14 @@ export async function SidebarServer({ session }: { session: Session }) {
               {userRole.charAt(0) + userRole.slice(1).toLowerCase()}
             </p>
           </div>
-          
+
           <form action="/api/auth/signout" method="POST">
-             <button
-               type="submit"
-               className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-muted-foreground hover:text-destructive"
-             >
-               <LogOut className="h-3.5 w-3.5" />
-             </button>
+            <button
+              type="submit"
+              className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-muted-foreground hover:text-destructive"
+            >
+              <LogOut className="h-3.5 w-3.5" />
+            </button>
           </form>
         </div>
       </div>

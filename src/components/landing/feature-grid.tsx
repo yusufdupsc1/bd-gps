@@ -25,9 +25,14 @@ export function FeatureGrid() {
   ];
 
   return (
-    <section id="features" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-8">
+    <section
+      id="features"
+      className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-8"
+    >
       <div className="flex flex-col items-center text-center mb-12">
-        <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">{t("landing_features_title")}</h2>
+        <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+          {t("landing_features_title")}
+        </h2>
         <p className="mt-4 max-w-2xl text-base text-muted-foreground leading-relaxed">
           {t("landing_features_description")}
         </p>
@@ -43,7 +48,9 @@ export function FeatureGrid() {
             <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary shadow-sm transition-transform group-hover:scale-110 group-hover:bg-primary group-hover:text-primary-foreground">
               <item.icon className="h-6 w-6" aria-hidden="true" />
             </div>
-            <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+            <h3 className="text-xl font-bold text-foreground mb-3">
+              {item.title}
+            </h3>
             <p className="text-sm leading-relaxed text-muted-foreground/90">
               {item.description}
             </p>

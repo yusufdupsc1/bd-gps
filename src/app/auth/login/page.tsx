@@ -51,14 +51,17 @@ export default async function LoginPage({
         <div className="relative z-10">
           <div className="flex items-center gap-3 mb-16">
             <div className="h-9 w-9 rounded-xl bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-sm">D</span>
+              <span className="text-primary-foreground font-bold text-sm">
+                D
+              </span>
             </div>
             <span className="font-bold text-xl tracking-tight">Dhadash</span>
           </div>
 
           <blockquote className="space-y-3">
             <p className="text-3xl font-semibold leading-snug tracking-tight text-balance">
-              &ldquo;The modern operating system for institutions that care about outcomes.&rdquo;
+              &ldquo;The modern operating system for institutions that care
+              about outcomes.&rdquo;
             </p>
             <footer className="text-sm text-muted-foreground">
               {govtPrimaryMode
@@ -95,7 +98,9 @@ export default async function LoginPage({
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-8 lg:hidden">
             <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xs">D</span>
+              <span className="text-primary-foreground font-bold text-xs">
+                D
+              </span>
             </div>
             <span className="font-bold text-lg tracking-tight">Dhadash</span>
           </div>
@@ -125,11 +130,17 @@ export default async function LoginPage({
 
           <p className="mt-3 text-center text-xs text-muted-foreground">
             By signing in, you agree to our{" "}
-            <Link href="/terms" className="underline underline-offset-4 hover:text-foreground">
+            <Link
+              href="/terms"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
               Terms
             </Link>{" "}
             and{" "}
-            <Link href="/privacy" className="underline underline-offset-4 hover:text-foreground">
+            <Link
+              href="/privacy"
+              className="underline underline-offset-4 hover:text-foreground"
+            >
               Privacy Policy
             </Link>
           </p>

@@ -11,24 +11,24 @@
 > Run `pnpm perf:lighthouse` to regenerate. Requires `AUTH_COOKIE` env + dev server running.
 > Raw reports → `./perf/lh/`
 
-| Page | Perf Score | LCP | TBT | TTFB | CLS | FCP | SI | JS (kB) |
-|---|---|---|---|---|---|---|---|---|
-| `/dashboard` | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ |
-| `/dashboard/students` | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ |
-| `/dashboard/finance` | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ |
+| Page                  | Perf Score | LCP       | TBT       | TTFB      | CLS       | FCP       | SI        | JS (kB)   |
+| --------------------- | ---------- | --------- | --------- | --------- | --------- | --------- | --------- | --------- |
+| `/dashboard`          | _pending_  | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ |
+| `/dashboard/students` | _pending_  | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ |
+| `/dashboard/finance`  | _pending_  | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ | _pending_ |
 
 > **Fill in after first run:** copy the console table from `pnpm perf:lighthouse` into rows above.
 
 ### Definitions
 
-| Metric | Target (good) | Notes |
-|---|---|---|
-| **LCP** | < 2.5 s | Largest Contentful Paint |
-| **TBT** | < 200 ms | Total Blocking Time (JS parse/exec on main thread) |
-| **TTFB** | < 800 ms | Server Response Time (includes DB + auth check) |
-| **CLS** | < 0.1 | Cumulative Layout Shift |
-| **FCP** | < 1.8 s | First Contentful Paint |
-| **SI** | < 3.4 s | Speed Index |
+| Metric   | Target (good) | Notes                                              |
+| -------- | ------------- | -------------------------------------------------- |
+| **LCP**  | < 2.5 s       | Largest Contentful Paint                           |
+| **TBT**  | < 200 ms      | Total Blocking Time (JS parse/exec on main thread) |
+| **TTFB** | < 800 ms      | Server Response Time (includes DB + auth check)    |
+| **CLS**  | < 0.1         | Cumulative Layout Shift                            |
+| **FCP**  | < 1.8 s       | First Contentful Paint                             |
+| **SI**   | < 3.4 s       | Speed Index                                        |
 
 ---
 
@@ -57,9 +57,11 @@ Run `pnpm perf:trace` (requires `AUTH_COOKIE`).
 ```
 
 `src/components/layout/sidebar.tsx` is wrapped in:
+
 ```css
-aside.hidden.lg:flex
+aside.hidden.lg: flex;
 ```
+
 This means on screens narrower than `lg` (1024 px) **the sidebar is completely hidden** with no toggle to open it. `TopBar` (`src/components/layout/topbar.tsx`) contains only a notification bell and a language switcher — **zero hamburger/menu buttons**.
 
 ### Reproduction Steps
@@ -103,13 +105,13 @@ Change high-priority nav links (`/dashboard`, `/dashboard/students`, `/dashboard
 
 All of these run their JS bundle on **every** dashboard page load.
 
-| Component | File | `"use client"` | What it does |
-|---|---|---|---|
-| `<Sidebar>` | `src/components/layout/sidebar.tsx` | ✅ | Full desktop sidebar — uses `useState`, `usePathname`, `useSearchParams`, `signOut` |
-| `<TopBar>` | `src/components/layout/topbar.tsx` | ✅ | Header bar — uses `useT`, `useGovtPrimaryT`, `isGovtPrimaryModeEnabled` |
-| `<MobileNav>` | `src/components/layout/mobile-nav.tsx` | ✅ | Bottom 4-tab nav — uses `usePathname`, `useT` |
-| `<AppToaster>` | `src/components/layout/app-toaster.tsx` | ✅ | Sonner `<Toaster>` — subscribes to toast events globally |
-| `<LanguageToggle>` | `src/components/LanguageToggle.tsx` | ✅ | Locale switcher inside TopBar |
+| Component          | File                                    | `"use client"` | What it does                                                                        |
+| ------------------ | --------------------------------------- | -------------- | ----------------------------------------------------------------------------------- |
+| `<Sidebar>`        | `src/components/layout/sidebar.tsx`     | ✅             | Full desktop sidebar — uses `useState`, `usePathname`, `useSearchParams`, `signOut` |
+| `<TopBar>`         | `src/components/layout/topbar.tsx`      | ✅             | Header bar — uses `useT`, `useGovtPrimaryT`, `isGovtPrimaryModeEnabled`             |
+| `<MobileNav>`      | `src/components/layout/mobile-nav.tsx`  | ✅             | Bottom 4-tab nav — uses `usePathname`, `useT`                                       |
+| `<AppToaster>`     | `src/components/layout/app-toaster.tsx` | ✅             | Sonner `<Toaster>` — subscribes to toast events globally                            |
+| `<LanguageToggle>` | `src/components/LanguageToggle.tsx`     | ✅             | Locale switcher inside TopBar                                                       |
 
 **Total client components in layout shell: 5**
 

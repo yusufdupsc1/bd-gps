@@ -3,12 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import {
-  CalendarCheck2,
-  CalendarDays,
-  FileText,
-  Bell,
-} from "lucide-react";
+import { CalendarCheck2, CalendarDays, FileText, Bell } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { useT } from "@/lib/i18n/client";
@@ -38,9 +33,17 @@ export function Hero() {
           </div>
 
           <h1 className="max-w-xl text-balance text-4xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:text-6xl">
-            {t("landing_hero_title").split(" ").map((word, i) => (
-              i === 0 || i === 1 ? <span key={i} className="gradient-text">{word} </span> : word + " "
-            ))}
+            {t("landing_hero_title")
+              .split(" ")
+              .map((word, i) =>
+                i === 0 || i === 1 ? (
+                  <span key={i} className="gradient-text">
+                    {word}{" "}
+                  </span>
+                ) : (
+                  word + " "
+                ),
+              )}
           </h1>
 
           <p className="max-w-lg text-pretty text-base text-muted-foreground sm:text-xl leading-relaxed">
@@ -65,13 +68,23 @@ export function Hero() {
           </div>
 
           <div className="flex flex-wrap items-center gap-4 pt-4">
-            <Button asChild className="primary-cta group rounded-2xl h-14 px-8 text-base font-bold shadow-lg shadow-primary/20 transition-premium active:scale-95">
+            <Button
+              asChild
+              className="primary-cta group rounded-2xl h-14 px-8 text-base font-bold shadow-lg shadow-primary/20 transition-premium active:scale-95"
+            >
               <Link href="/#demo-booking" prefetch={false}>
                 {t("demo_cta")}
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                <ArrowRight
+                  className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1"
+                  aria-hidden="true"
+                />
               </Link>
             </Button>
-            <Button asChild variant="outline" className="rounded-2xl h-14 px-8 text-base font-bold border-border/60 bg-background/50 backdrop-blur-sm transition-premium hover:bg-muted active:scale-95">
+            <Button
+              asChild
+              variant="outline"
+              className="rounded-2xl h-14 px-8 text-base font-bold border-border/60 bg-background/50 backdrop-blur-sm transition-premium hover:bg-muted active:scale-95"
+            >
               <Link href="/auth/register" prefetch={false}>
                 {t("start_now")}
               </Link>
@@ -104,8 +117,12 @@ export function Hero() {
                 <CalendarCheck2 className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
-                <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-0.5">Live Attendance</p>
-                <p className="text-sm font-bold text-foreground">100% Secure & Automated</p>
+                <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-wider mb-0.5">
+                  Live Attendance
+                </p>
+                <p className="text-sm font-bold text-foreground">
+                  100% Secure & Automated
+                </p>
               </div>
             </div>
           </div>

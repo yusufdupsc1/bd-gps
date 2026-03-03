@@ -24,20 +24,23 @@ When a `<Link>` enters the viewport (which MobileNav items always do since it's 
 
 ## Benchmark Results (Local Dev)
 
-> *Note:* Next.js local dev server (`next dev`) compiles pages on-demand. Initial Lighthouse runs frequently timed out waiting for Webpack/Turbopack to compile the page (`TTFB > 15s`). The metrics below are meant to illustrate the architectural change. Production builds (`next build`) would not suffer from these compile-time delays.
+> _Note:_ Next.js local dev server (`next dev`) compiles pages on-demand. Initial Lighthouse runs frequently timed out waiting for Webpack/Turbopack to compile the page (`TTFB > 15s`). The metrics below are meant to illustrate the architectural change. Production builds (`next build`) would not suffer from these compile-time delays.
 
 ### Before
+
 - User clicks `/dashboard/students` in MobileNav.
 - **Network trace:** A request is fired to `http://localhost:3000/dashboard/students?_rsc=...`. The UI waits.
 - Latency depends entirely on Server Response Time (TTFB) + Network RTT.
 
 ### After
+
 - The layout mounts. MobileNav is in the viewport.
 - **Network trace:** Next.js prefetch worker automatically fetches `?_rsc=...` for all 4 MobileNav links in the background.
 - User clicks `/dashboard/students` in MobileNav.
 - **Result:** Navigation is immediate. The RSC payload is retrieved from the `RouterCache`. User sees the new page instantly. Server only processes data mutations or dynamic API calls if the page requests them.
 
 ## Verification
+
 - Run `pnpm dev`
 - Open the Network tab in DevTools (Filter: `Fetch/XHR`).
 - On initial load of `/dashboard`, observe background `?_rsc=` requests for the Nav links.

@@ -45,7 +45,11 @@ async function getAttendanceData(institutionId: string) {
     // Prisma groupBy returns `_count` as an object (`{ _all: number }`).
     // Normalize to a plain number to avoid rendering object values in React.
     return data.map(
-      (row: { date: Date; status: string; _count?: number | { _all?: number } }) => ({
+      (row: {
+        date: Date;
+        status: string;
+        _count?: number | { _all?: number };
+      }) => ({
         date: row.date,
         status: row.status,
         _count:
@@ -219,11 +223,12 @@ async function getExecutiveData(institutionId: string) {
         process.env.SSLCOMMERZ_STORE_ID &&
         process.env.SSLCOMMERZ_STORE_PASSWORD,
       ),
-      stripeConfigured: Boolean(
-        !isGovtPrimaryModeEnabled() &&
-        process.env.STRIPE_SECRET_KEY &&
-        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
-      ) || undefined,
+      stripeConfigured:
+        Boolean(
+          !isGovtPrimaryModeEnabled() &&
+          process.env.STRIPE_SECRET_KEY &&
+          process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+        ) || undefined,
     };
   } catch (error) {
     console.error("[DASHBOARD_EXECUTIVE]", error);
@@ -257,12 +262,14 @@ async function getExecutiveData(institutionId: string) {
 export default async function DashboardPage() {
   const session = await auth();
   const govtPrimaryMode = isGovtPrimaryModeEnabled();
-  const user = session?.user as {
-    institutionId?: string;
-    institutionName?: string;
-    name?: string | null;
-    role?: string;
-  } | undefined;
+  const user = session?.user as
+    | {
+        institutionId?: string;
+        institutionName?: string;
+        name?: string | null;
+        role?: string;
+      }
+    | undefined;
   if (!user?.institutionId) {
     return null;
   }
@@ -375,8 +382,9 @@ export default async function DashboardPage() {
               </h1>
 
               <p className="text-muted-foreground/80 text-sm sm:text-lg max-w-xl leading-relaxed mt-2">
-                Welcome to your command center for <strong>{institutionName}</strong>.
-                Everything is synced and secured.
+                Welcome to your command center for{" "}
+                <strong>{institutionName}</strong>. Everything is synced and
+                secured.
                 {govtPrimaryMode && (
                   <span className="ml-2 inline-flex items-center rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-black text-emerald-600 uppercase tracking-widest border border-emerald-500/20">
                     GP Mode Active

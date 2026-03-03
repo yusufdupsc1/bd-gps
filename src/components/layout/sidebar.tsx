@@ -68,9 +68,24 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         icon: LayoutDashboard,
         roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
       },
-      { label: "Teacher Portal", href: "/dashboard/portal/teacher", icon: UserRound, roles: ["TEACHER"] },
-      { label: "Student Portal", href: "/dashboard/portal/student", icon: GraduationCap, roles: ["STUDENT"] },
-      { label: "Parent Portal", href: "/dashboard/portal/parent", icon: Users, roles: ["PARENT"] },
+      {
+        label: "Teacher Portal",
+        href: "/dashboard/portal/teacher",
+        icon: UserRound,
+        roles: ["TEACHER"],
+      },
+      {
+        label: "Student Portal",
+        href: "/dashboard/portal/student",
+        icon: GraduationCap,
+        roles: ["STUDENT"],
+      },
+      {
+        label: "Parent Portal",
+        href: "/dashboard/portal/parent",
+        icon: Users,
+        roles: ["PARENT"],
+      },
       {
         label: "Analytics",
         href: "/dashboard/analytics",
@@ -107,10 +122,30 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         icon: Bookmark,
         roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
       },
-      { label: "Teachers", href: "/dashboard/teachers", icon: Users, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"] },
-      { label: "Classes", href: "/dashboard/classes", icon: BookOpen, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"] },
-      { label: "Attendance", href: "/dashboard/attendance", icon: ClipboardCheck, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
-      { label: "Grades", href: "/dashboard/grades", icon: School, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
+      {
+        label: "Teachers",
+        href: "/dashboard/teachers",
+        icon: Users,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
+      },
+      {
+        label: "Classes",
+        href: "/dashboard/classes",
+        icon: BookOpen,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF"],
+      },
+      {
+        label: "Attendance",
+        href: "/dashboard/attendance",
+        icon: ClipboardCheck,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
+      {
+        label: "Grades",
+        href: "/dashboard/grades",
+        icon: School,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
     ],
   },
   {
@@ -122,8 +157,18 @@ const NAV_SECTIONS: { label: string; items: NavItem[] }[] = [
         icon: CreditCard,
         roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL"],
       },
-      { label: "Events", href: "/dashboard/events", icon: Calendar, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
-      { label: "Announcements", href: "/dashboard/announcements", icon: Bell, roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"] },
+      {
+        label: "Events",
+        href: "/dashboard/events",
+        icon: Calendar,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
+      {
+        label: "Announcements",
+        href: "/dashboard/announcements",
+        icon: Bell,
+        roles: ["SUPER_ADMIN", "ADMIN", "PRINCIPAL", "STAFF", "TEACHER"],
+      },
     ],
   },
   {
@@ -207,12 +252,13 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const userRole = (session.user as any)?.role ?? "";
-  const userInitials = (session.user.name ?? "User")
-    ?.split(" ")
-    .map((n) => n[0])
-    .join("")
-    .toUpperCase()
-    .slice(0, 2) ?? "U";
+  const userInitials =
+    (session.user.name ?? "User")
+      ?.split(" ")
+      .map((n) => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2) ?? "U";
 
   const isActive = (href: string, exact = false) => {
     if (href.includes("?")) {
@@ -231,14 +277,18 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
-  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({});
+  const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>(
+    {},
+  );
 
   const groupedExpanded = (() => {
     const next = { ...expandedGroups };
     for (const section of NAV_SECTIONS) {
       for (const item of section.items) {
         if (!item.children?.length) continue;
-        const hasActiveChild = item.children.some((child) => isActive(child.href, child.exact));
+        const hasActiveChild = item.children.some((child) =>
+          isActive(child.href, child.exact),
+        );
         const key = item.href;
         if (typeof next[key] === "undefined") {
           next[key] = hasActiveChild || isActive(item.href);
@@ -283,8 +333,10 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
   };
 
   const localizeItem = (label: string) => {
-    if (govtPrimaryMode && label === "Teacher Portal") return t("assistant_teacher_portal");
-    if (govtPrimaryMode && label === "Institution") return t("primary_school_setup");
+    if (govtPrimaryMode && label === "Teacher Portal")
+      return t("assistant_teacher_portal");
+    if (govtPrimaryMode && label === "Institution")
+      return t("primary_school_setup");
     if (govtPrimaryMode && label === "Students") return t("student");
     if (govtPrimaryMode && label === "Teachers") return tg("assistant_teacher");
     if (govtPrimaryMode && label === "Classes") return t("primary_classes");
@@ -297,10 +349,12 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
 
   return (
     <TooltipProvider delayDuration={0}>
-      <aside className={cn(
-        "h-svh w-[230px] flex-shrink-0 flex-col border-r border-border/40 bg-card/60 backdrop-blur-xl xl:w-[250px] transition-premium",
-        isMobile ? "flex w-full" : "hidden lg:flex"
-      )}>
+      <aside
+        className={cn(
+          "h-svh w-[230px] flex-shrink-0 flex-col border-r border-border/40 bg-card/60 backdrop-blur-xl xl:w-[250px] transition-premium",
+          isMobile ? "flex w-full" : "hidden lg:flex",
+        )}
+      >
         {/* Brand */}
         <div className="flex items-center gap-3 h-14 px-5 border-b border-border/40">
           <div className="h-8 w-8 rounded-xl bg-primary flex items-center justify-center flex-shrink-0 shadow-[0_2px_10px_-3px_rgba(var(--primary),0.5)]">
@@ -314,7 +368,10 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
               Ops Center
             </span>
           </div>
-          <Badge variant="outline" className="ml-auto text-[9px] font-mono py-0 px-1 bg-muted/30 border-border/50 text-muted-foreground">
+          <Badge
+            variant="outline"
+            className="ml-auto text-[9px] font-mono py-0 px-1 bg-muted/30 border-border/50 text-muted-foreground"
+          >
             v1.0
           </Badge>
         </div>
@@ -346,7 +403,10 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
             const visibleItems = section.items.filter(
               (item) =>
                 (!item.roles || item.roles.includes(userRole)) &&
-                !(govtPrimaryMode && GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(item.href))
+                !(
+                  govtPrimaryMode &&
+                  GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(item.href)
+                ),
             );
             if (visibleItems.length === 0) return null;
 
@@ -361,7 +421,10 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
                     const visibleChildren = (item.children ?? []).filter(
                       (child) =>
                         (!child.roles || child.roles.includes(userRole)) &&
-                        !(govtPrimaryMode && GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(child.href)),
+                        !(
+                          govtPrimaryMode &&
+                          GOVT_PRIMARY_HIDDEN_NAV_HREFS.has(child.href)
+                        ),
                     );
                     const hasActiveChild = visibleChildren.some((child) =>
                       isActive(child.href, child.exact),
@@ -378,7 +441,7 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
                             "group flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-premium",
                             active
                               ? "sidebar-active-item"
-                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                              : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                           )}
                         >
                           <item.icon
@@ -386,10 +449,12 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
                               "h-4.5 w-4.5 flex-shrink-0 transition-transform group-hover:scale-110",
                               active
                                 ? "sidebar-active-icon"
-                                : "text-muted-foreground/70 group-hover:text-foreground"
+                                : "text-muted-foreground/70 group-hover:text-foreground",
                             )}
                           />
-                          <span className="truncate">{localizeItem(item.label)}</span>
+                          <span className="truncate">
+                            {localizeItem(item.label)}
+                          </span>
                           {item.badge && (
                             <span className="ml-auto font-mono text-[9px] font-bold bg-accent/10 text-accent px-1.5 py-0.5 rounded-full border border-accent/20">
                               {item.badge}
@@ -421,10 +486,14 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
                           <item.icon
                             className={cn(
                               "h-4.5 w-4.5 flex-shrink-0 transition-transform group-hover:scale-110",
-                              active ? "sidebar-active-icon" : "text-muted-foreground/70 group-hover:text-foreground",
+                              active
+                                ? "sidebar-active-icon"
+                                : "text-muted-foreground/70 group-hover:text-foreground",
                             )}
                           />
-                          <span className="truncate">{localizeItem(item.label)}</span>
+                          <span className="truncate">
+                            {localizeItem(item.label)}
+                          </span>
                           <ChevronDown
                             className={cn(
                               "ml-auto h-3.5 w-3.5 transition-transform duration-300",
@@ -472,7 +541,7 @@ export function Sidebar({ session, isMobile }: SidebarProps) {
           <div className="p-4 border-t border-border/40 bg-muted/20 backdrop-blur-md">
             <div className="mb-3 px-2">
               <p className="text-[10px] font-bn text-primary/60 italic leading-tight text-center">
-                "আমার সোনার বাংলা, আমি তোমায় ভালোবাসি"
+                &quot;আমার সোনার বাংলা, আমি তোমায় ভালোবাসি&quot;
               </p>
             </div>
 

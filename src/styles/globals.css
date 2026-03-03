@@ -6,13 +6,15 @@
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-bn: var(--font-hind-siliguri), "Noto Sans Bengali", var(--font-geist-sans), sans-serif;
+  --font-bn:
+    var(--font-hind-siliguri), "Noto Sans Bengali", var(--font-geist-sans),
+    sans-serif;
 
   /* ERP semantic tokens */
   /* Bangladesh National Flag Theme */
-  --color-bd-green: #006A4E;
-  --color-bd-red: #F42A41;
-  --color-bd-gold: #F7D117;
+  --color-bd-green: #006a4e;
+  --color-bd-red: #f42a41;
+  --color-bd-gold: #f7d117;
   /* Golden Bengal theme */
 
   --color-brand-50: #e7f4ef;
@@ -181,10 +183,26 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(at 0% 0%, hsla(163, 100%, 21%, 0.05) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, hsla(352, 90%, 56%, 0.03) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(163, 100%, 21%, 0.05) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(352, 90%, 56%, 0.03) 0px, transparent 50%);
+      radial-gradient(
+        at 0% 0%,
+        hsla(163, 100%, 21%, 0.05) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 100% 0%,
+        hsla(352, 90%, 56%, 0.03) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 100% 100%,
+        hsla(163, 100%, 21%, 0.05) 0px,
+        transparent 50%
+      ),
+      radial-gradient(
+        at 0% 100%,
+        hsla(352, 90%, 56%, 0.03) 0px,
+        transparent 50%
+      );
     background-attachment: fixed;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -362,10 +380,12 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.2) 50%,
-        transparent 100%);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.2) 50%,
+      transparent 100%
+    );
     animation: shimmer-anim 1.5s infinite;
   }
 
@@ -416,7 +436,6 @@
 }
 
 @keyframes pulse-slow {
-
   0%,
   100% {
     opacity: 1;
@@ -448,32 +467,32 @@
   }
 
   /* Staggered children */
-  .stagger>* {
+  .stagger > * {
     opacity: 0;
     animation: fade-in 0.4s ease-out forwards;
   }
 
-  .stagger>*:nth-child(1) {
+  .stagger > *:nth-child(1) {
     animation-delay: 0ms;
   }
 
-  .stagger>*:nth-child(2) {
+  .stagger > *:nth-child(2) {
     animation-delay: 60ms;
   }
 
-  .stagger>*:nth-child(3) {
+  .stagger > *:nth-child(3) {
     animation-delay: 120ms;
   }
 
-  .stagger>*:nth-child(4) {
+  .stagger > *:nth-child(4) {
     animation-delay: 180ms;
   }
 
-  .stagger>*:nth-child(5) {
+  .stagger > *:nth-child(5) {
     animation-delay: 240ms;
   }
 
-  .stagger>*:nth-child(6) {
+  .stagger > *:nth-child(6) {
     animation-delay: 300ms;
   }
 
@@ -598,7 +617,6 @@
 }
 
 @media (max-width: 640px) {
-
   .animate-fade-in,
   .animate-slide-right,
   .animate-scale-in {
@@ -607,14 +625,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   .animate-fade-in,
   .animate-slide-right,
   .animate-scale-in,
   .animate-pulse-slow,
   .gradient-text,
   .shimmer::after,
-  .stagger>* {
+  .stagger > * {
     animation: none !important;
   }
 }

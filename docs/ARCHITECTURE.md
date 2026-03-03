@@ -48,9 +48,9 @@ This creates a clear tenant boundary in application logic and data access.
 
 - Next.js App Router pages and React components under `src/app` + `src/components`.
 - **Server-First Component Pattern**: Used for global navigation (e.g., `MobileNavServer`).
-    - Logical routing and data fetching (session, locale, dictionary) are handled in a Server Component.
-    - Minimal client "islands" (e.g., `ActiveLink`) handle viewport-aware hydration (Active states, Prefetching).
-    - Results in zero-JS overhead for menu generation and instant navigation via Next.js router cache.
+  - Logical routing and data fetching (session, locale, dictionary) are handled in a Server Component.
+  - Minimal client "islands" (e.g., `ActiveLink`) handle viewport-aware hydration (Active states, Prefetching).
+  - Results in zero-JS overhead for menu generation and instant navigation via Next.js router cache.
 
 ## Domain Layer
 

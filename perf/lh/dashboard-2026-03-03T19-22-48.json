@@ -497,10 +497,7 @@
     }
   },
   "configSettings": {
-    "output": [
-      "html",
-      "json"
-    ],
+    "output": ["html", "json"],
     "maxWaitForFcp": 30000,
     "maxWaitForLoad": 45000,
     "pauseAfterFcpMs": 1000,
@@ -549,19 +546,13 @@
     },
     "precomputedLanternData": null,
     "onlyAudits": null,
-    "onlyCategories": [
-      "performance"
-    ],
+    "onlyCategories": ["performance"],
     "skipAudits": null
   },
   "categories": {
     "performance": {
       "title": "Performance",
-      "supportedModes": [
-        "navigation",
-        "timespan",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "timespan", "snapshot"],
       "auditRefs": [
         {
           "id": "first-contentful-paint",
@@ -1677,9 +1668,7 @@
       "core/audits/metrics/largest-contentful-paint.js | description": [
         "audits[largest-contentful-paint].description"
       ],
-      "core/lib/i18n/i18n.js | speedIndexMetric": [
-        "audits[speed-index].title"
-      ],
+      "core/lib/i18n/i18n.js | speedIndexMetric": ["audits[speed-index].title"],
       "core/audits/metrics/speed-index.js | description": [
         "audits[speed-index].description"
       ],
@@ -1707,21 +1696,15 @@
       "core/audits/server-response-time.js | description": [
         "audits[server-response-time].description"
       ],
-      "core/lib/i18n/i18n.js | interactiveMetric": [
-        "audits.interactive.title"
-      ],
+      "core/lib/i18n/i18n.js | interactiveMetric": ["audits.interactive.title"],
       "core/audits/metrics/interactive.js | description": [
         "audits.interactive.description"
       ],
-      "core/audits/user-timings.js | title": [
-        "audits[user-timings].title"
-      ],
+      "core/audits/user-timings.js | title": ["audits[user-timings].title"],
       "core/audits/user-timings.js | description": [
         "audits[user-timings].description"
       ],
-      "core/audits/redirects.js | title": [
-        "audits.redirects.title"
-      ],
+      "core/audits/redirects.js | title": ["audits.redirects.title"],
       "core/audits/redirects.js | description": [
         "audits.redirects.description"
       ],
@@ -1731,15 +1714,11 @@
       "core/audits/mainthread-work-breakdown.js | description": [
         "audits[mainthread-work-breakdown].description"
       ],
-      "core/audits/bootup-time.js | title": [
-        "audits[bootup-time].title"
-      ],
+      "core/audits/bootup-time.js | title": ["audits[bootup-time].title"],
       "core/audits/bootup-time.js | description": [
         "audits[bootup-time].description"
       ],
-      "core/audits/network-rtt.js | title": [
-        "audits[network-rtt].title"
-      ],
+      "core/audits/network-rtt.js | title": ["audits[network-rtt].title"],
       "core/audits/network-rtt.js | description": [
         "audits[network-rtt].description"
       ],
@@ -1749,15 +1728,11 @@
       "core/audits/network-server-latency.js | description": [
         "audits[network-server-latency].description"
       ],
-      "core/audits/layout-shifts.js | title": [
-        "audits[layout-shifts].title"
-      ],
+      "core/audits/layout-shifts.js | title": ["audits[layout-shifts].title"],
       "core/audits/layout-shifts.js | description": [
         "audits[layout-shifts].description"
       ],
-      "core/audits/long-tasks.js | title": [
-        "audits[long-tasks].title"
-      ],
+      "core/audits/long-tasks.js | title": ["audits[long-tasks].title"],
       "core/audits/long-tasks.js | description": [
         "audits[long-tasks].description"
       ],
@@ -1767,9 +1742,7 @@
       "core/audits/non-composited-animations.js | description": [
         "audits[non-composited-animations].description"
       ],
-      "core/audits/unsized-images.js | title": [
-        "audits[unsized-images].title"
-      ],
+      "core/audits/unsized-images.js | title": ["audits[unsized-images].title"],
       "core/audits/unsized-images.js | description": [
         "audits[unsized-images].description"
       ],
@@ -1803,12 +1776,8 @@
       "core/audits/byte-efficiency/unused-javascript.js | description": [
         "audits[unused-javascript].description"
       ],
-      "core/audits/bf-cache.js | title": [
-        "audits[bf-cache].title"
-      ],
-      "core/audits/bf-cache.js | description": [
-        "audits[bf-cache].description"
-      ],
+      "core/audits/bf-cache.js | title": ["audits[bf-cache].title"],
+      "core/audits/bf-cache.js | description": ["audits[bf-cache].description"],
       "node_modules/@paulirish/trace_engine/models/trace/insights/Cache.js | title": [
         "audits[cache-insight].title"
       ],

@@ -1,4 +1,4 @@
-import { formatDate, cn } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { CalendarDays, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -17,9 +17,14 @@ export function UpcomingEvents({ events }: { events: EventItem[] }) {
           <h2 className="text-lg font-black tracking-tight text-foreground/90 flex items-center gap-2">
             Academic Calendar
           </h2>
-          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">Scheduled Events</p>
+          <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
+            Scheduled Events
+          </p>
         </div>
-        <Link href="/dashboard/events" className="text-[11px] font-bold text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors uppercase tracking-widest leading-none">
+        <Link
+          href="/dashboard/events"
+          className="text-[11px] font-bold text-muted-foreground hover:text-primary flex items-center gap-1 transition-colors uppercase tracking-widest leading-none"
+        >
           Full Schedule <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
@@ -42,7 +47,9 @@ export function UpcomingEvents({ events }: { events: EventItem[] }) {
                       {event.type}
                     </span>
                     <span className="text-muted-foreground/60">•</span>
-                    <span className="text-muted-foreground font-medium">{formatDate(event.startDate)}</span>
+                    <span className="text-muted-foreground font-medium">
+                      {formatDate(event.startDate)}
+                    </span>
                   </div>
                 </div>
                 <div className="h-10 w-10 rounded-xl bg-background/50 flex flex-col items-center justify-center border border-border/40 shadow-sm">
@@ -50,7 +57,9 @@ export function UpcomingEvents({ events }: { events: EventItem[] }) {
                     {new Date(event.startDate).getDate()}
                   </span>
                   <span className="text-[8px] font-bold text-muted-foreground uppercase">
-                    {new Date(event.startDate).toLocaleString('default', { month: 'short' })}
+                    {new Date(event.startDate).toLocaleString("default", {
+                      month: "short",
+                    })}
                   </span>
                 </div>
               </div>
@@ -59,8 +68,12 @@ export function UpcomingEvents({ events }: { events: EventItem[] }) {
         ) : (
           <div className="h-40 flex flex-col items-center justify-center p-6 border-2 border-dashed border-border/60 rounded-[1.5rem] bg-muted/10">
             <CalendarDays className="h-10 w-10 text-muted-foreground/20 mb-3" />
-            <p className="text-sm font-bold text-muted-foreground/60">No scheduled events</p>
-            <p className="text-[10px] text-muted-foreground/40 mt-1 uppercase tracking-widest">Calendar is clear</p>
+            <p className="text-sm font-bold text-muted-foreground/60">
+              No scheduled events
+            </p>
+            <p className="text-[10px] text-muted-foreground/40 mt-1 uppercase tracking-widest">
+              Calendar is clear
+            </p>
           </div>
         )}
       </div>

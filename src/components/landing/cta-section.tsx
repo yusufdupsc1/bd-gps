@@ -19,10 +19,14 @@ export function CTASection() {
             Govt Primary স্কুলকে ডিজিটাল workflow-এ নিন
           </h2>
           <p className="max-w-xl text-base text-white/80 sm:text-lg leading-relaxed">
-            প্রথমে attendance register + fee receipt print flow setup করুন, তারপর পুরো অফিস process সহজ করুন।
+            প্রথমে attendance register + fee receipt print flow setup করুন,
+            তারপর পুরো অফিস process সহজ করুন।
           </p>
           <div className="pt-6 flex flex-wrap gap-4">
-            <Button asChild className="h-14 px-8 rounded-2xl bg-white text-primary hover:bg-white/90 font-bold transition-premium active:scale-95 shadow-xl shadow-black/10">
+            <Button
+              asChild
+              className="h-14 px-8 rounded-2xl bg-white text-primary hover:bg-white/90 font-bold transition-premium active:scale-95 shadow-xl shadow-black/10"
+            >
               <Link href="/#demo-booking" prefetch={false}>
                 {t("demo_cta")}
               </Link>

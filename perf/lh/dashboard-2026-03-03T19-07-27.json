@@ -790,9 +790,7 @@
             "duration": 424.0799999999998
           }
         ],
-        "sortedBy": [
-          "duration"
-        ]
+        "sortedBy": ["duration"]
       },
       "guidanceLevel": 1
     },
@@ -918,9 +916,7 @@
         "summary": {
           "wastedMs": 10836.843999999983
         },
-        "sortedBy": [
-          "total"
-        ]
+        "sortedBy": ["total"]
       },
       "guidanceLevel": 1
     },
@@ -1829,9 +1825,7 @@
             "rtt": 12.457
           }
         ],
-        "sortedBy": [
-          "rtt"
-        ]
+        "sortedBy": ["rtt"]
       }
     },
     "network-server-latency": {
@@ -1864,9 +1858,7 @@
             "serverResponseTime": 71.447
           }
         ],
-        "sortedBy": [
-          "serverResponseTime"
-        ]
+        "sortedBy": ["serverResponseTime"]
       }
     },
     "main-thread-tasks": {
@@ -2850,12 +2842,8 @@
             "startTime": 16162.447
           }
         ],
-        "sortedBy": [
-          "duration"
-        ],
-        "skipSumming": [
-          "startTime"
-        ],
+        "sortedBy": ["duration"],
+        "skipSumming": ["startTime"],
         "debugData": {
           "type": "debugdata",
           "urls": [
@@ -3905,9 +3893,7 @@
             "totalBytes": 41091
           }
         ],
-        "sortedBy": [
-          "totalBytes"
-        ]
+        "sortedBy": ["totalBytes"]
       },
       "guidanceLevel": 1
     },
@@ -3953,9 +3939,7 @@
         ],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 4201,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4057,9 +4041,7 @@
         ],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 172641,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4144,9 +4126,7 @@
         ],
         "overallSavingsMs": 0,
         "overallSavingsBytes": 281262,
-        "sortedBy": [
-          "wastedBytes"
-        ],
+        "sortedBy": ["wastedBytes"],
         "debugData": {
           "type": "debugdata",
           "metricSavings": {
@@ -4479,9 +4459,7 @@
           }
         ],
         "items": [],
-        "skipSumming": [
-          "wastedMs"
-        ]
+        "skipSumming": ["wastedMs"]
       },
       "guidanceLevel": 3
     },
@@ -4984,10 +4962,7 @@
     }
   },
   "configSettings": {
-    "output": [
-      "html",
-      "json"
-    ],
+    "output": ["html", "json"],
     "maxWaitForFcp": 30000,
     "maxWaitForLoad": 45000,
     "pauseAfterFcpMs": 1000,
@@ -5036,19 +5011,13 @@
     },
     "precomputedLanternData": null,
     "onlyAudits": null,
-    "onlyCategories": [
-      "performance"
-    ],
+    "onlyCategories": ["performance"],
     "skipAudits": null
   },
   "categories": {
     "performance": {
       "title": "Performance",
-      "supportedModes": [
-        "navigation",
-        "timespan",
-        "snapshot"
-      ],
+      "supportedModes": ["navigation", "timespan", "snapshot"],
       "auditRefs": [
         {
           "id": "first-contentful-paint",
@@ -5382,9 +5351,7 @@
   "entities": [
     {
       "name": "localhost",
-      "origins": [
-        "http://localhost:3000"
-      ],
+      "origins": ["http://localhost:3000"],
       "isFirstParty": true,
       "isUnrecognized": true
     }
@@ -7102,9 +7069,7 @@
           "path": "runtimeError.message"
         }
       ],
-      "core/gather/driver/navigation.js | warningTimeout": [
-        "runWarnings[0]"
-      ],
+      "core/gather/driver/navigation.js | warningTimeout": ["runWarnings[0]"],
       "core/lib/i18n/i18n.js | firstContentfulPaintMetric": [
         "audits[first-contentful-paint].title"
       ],
@@ -7155,9 +7120,7 @@
       "core/audits/metrics/largest-contentful-paint.js | description": [
         "audits[largest-contentful-paint].description"
       ],
-      "core/lib/i18n/i18n.js | speedIndexMetric": [
-        "audits[speed-index].title"
-      ],
+      "core/lib/i18n/i18n.js | speedIndexMetric": ["audits[speed-index].title"],
       "core/audits/metrics/speed-index.js | description": [
         "audits[speed-index].description"
       ],
@@ -7242,15 +7205,11 @@
         "audits[network-rtt].details.headings[1].label",
         "audits[network-server-latency].details.headings[1].label"
       ],
-      "core/lib/i18n/i18n.js | interactiveMetric": [
-        "audits.interactive.title"
-      ],
+      "core/lib/i18n/i18n.js | interactiveMetric": ["audits.interactive.title"],
       "core/audits/metrics/interactive.js | description": [
         "audits.interactive.description"
       ],
-      "core/audits/user-timings.js | title": [
-        "audits[user-timings].title"
-      ],
+      "core/audits/user-timings.js | title": ["audits[user-timings].title"],
       "core/audits/user-timings.js | description": [
         "audits[user-timings].description"
       ],
@@ -7279,9 +7238,7 @@
         "audits[lcp-breakdown-insight].details.items[0].headings[1].label",
         "audits[render-blocking-insight].details.headings[2].label"
       ],
-      "core/audits/redirects.js | title": [
-        "audits.redirects.title"
-      ],
+      "core/audits/redirects.js | title": ["audits.redirects.title"],
       "core/audits/redirects.js | description": [
         "audits.redirects.description"
       ],
@@ -7309,9 +7266,7 @@
       "core/audits/bootup-time.js | columnScriptParse": [
         "audits[bootup-time].details.headings[3].label"
       ],
-      "core/audits/network-rtt.js | title": [
-        "audits[network-rtt].title"
-      ],
+      "core/audits/network-rtt.js | title": ["audits[network-rtt].title"],
       "core/audits/network-rtt.js | description": [
         "audits[network-rtt].description"
       ],
@@ -7363,9 +7318,7 @@
       "core/lib/i18n/i18n.js | thirdPartyResourceType": [
         "audits[resource-summary].details.items[8].label"
       ],
-      "core/audits/layout-shifts.js | title": [
-        "audits[layout-shifts].title"
-      ],
+      "core/audits/layout-shifts.js | title": ["audits[layout-shifts].title"],
       "core/audits/layout-shifts.js | description": [
         "audits[layout-shifts].description"
       ],
@@ -7377,9 +7330,7 @@
       "core/audits/layout-shifts.js | columnScore": [
         "audits[layout-shifts].details.headings[1].label"
       ],
-      "core/audits/long-tasks.js | title": [
-        "audits[long-tasks].title"
-      ],
+      "core/audits/long-tasks.js | title": ["audits[long-tasks].title"],
       "core/audits/long-tasks.js | description": [
         "audits[long-tasks].description"
       ],
@@ -7421,9 +7372,7 @@
           "path": "audits[non-composited-animations].details.items[0].subItems.items[1].failureReason"
         }
       ],
-      "core/audits/unsized-images.js | title": [
-        "audits[unsized-images].title"
-      ],
+      "core/audits/unsized-images.js | title": ["audits[unsized-images].title"],
       "core/audits/unsized-images.js | description": [
         "audits[unsized-images].description"
       ],
@@ -7508,12 +7457,8 @@
       "core/audits/byte-efficiency/unused-javascript.js | description": [
         "audits[unused-javascript].description"
       ],
-      "core/audits/bf-cache.js | failureTitle": [
-        "audits[bf-cache].title"
-      ],
-      "core/audits/bf-cache.js | description": [
-        "audits[bf-cache].description"
-      ],
+      "core/audits/bf-cache.js | failureTitle": ["audits[bf-cache].title"],
+      "core/audits/bf-cache.js | description": ["audits[bf-cache].description"],
       "core/audits/bf-cache.js | displayValue": [
         {
           "values": {

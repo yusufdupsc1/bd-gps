@@ -1,4 +1,10 @@
-import { Users, UserCheck, ClipboardCheck, CreditCard, ArrowUpRight } from "lucide-react";
+import {
+  Users,
+  UserCheck,
+  ClipboardCheck,
+  CreditCard,
+  ArrowUpRight,
+} from "lucide-react";
 import { formatCurrency, cn } from "@/lib/utils";
 import { isGovtPrimaryModeEnabled } from "@/lib/config";
 
@@ -10,28 +16,30 @@ interface StatsData {
 }
 
 export function StatsGrid({ stats }: { stats: StatsData }) {
-  const teacherLabel = isGovtPrimaryModeEnabled() ? "Assistant Teachers" : "Teachers";
+  const teacherLabel = isGovtPrimaryModeEnabled()
+    ? "Assistant Teachers"
+    : "Teachers";
   const cards = [
     {
       label: "Total Students",
       value: stats.totalStudents,
       icon: Users,
       color: "blue",
-      trend: "+2% from last wk"
+      trend: "+2% from last wk",
     },
     {
       label: teacherLabel,
       value: stats.totalTeachers,
       icon: UserCheck,
       color: "emerald",
-      trend: "All sessions active"
+      trend: "All sessions active",
     },
     {
       label: "Present Today",
       value: stats.todayAttendance,
       icon: ClipboardCheck,
       color: "purple",
-      trend: "Synced 5m ago"
+      trend: "Synced 5m ago",
     },
     {
       label: "Revenue Tracker",
@@ -39,7 +47,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
       icon: CreditCard,
       color: "amber",
       subtitle: `${stats.pendingFees.count} pending invoices`,
-      trend: "Awaiting clearance"
+      trend: "Awaiting clearance",
     },
   ];
 
@@ -60,15 +68,27 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
             className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-border/40 bg-card/60 backdrop-blur-sm p-6 shadow-sm transition-premium hover:shadow-xl hover:-translate-y-1 premium-shadow"
           >
             {/* Background Accent */}
-            <div className={cn("absolute -right-4 -top-4 h-24 w-24 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-20",
-              card.color === 'blue' ? 'bg-blue-500' :
-                card.color === 'emerald' ? 'bg-emerald-500' :
-                  card.color === 'purple' ? 'bg-purple-500' : 'bg-amber-500'
-            )} />
+            <div
+              className={cn(
+                "absolute -right-4 -top-4 h-24 w-24 rounded-full blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-20",
+                card.color === "blue"
+                  ? "bg-blue-500"
+                  : card.color === "emerald"
+                    ? "bg-emerald-500"
+                    : card.color === "purple"
+                      ? "bg-purple-500"
+                      : "bg-amber-500",
+              )}
+            />
 
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-5">
-                <div className={cn("h-12 w-12 rounded-2xl flex items-center justify-center border transition-transform duration-500 group-hover:scale-110", colorMap[card.color])}>
+                <div
+                  className={cn(
+                    "h-12 w-12 rounded-2xl flex items-center justify-center border transition-transform duration-500 group-hover:scale-110",
+                    colorMap[card.color],
+                  )}
+                >
                   <Icon className="h-6 w-6" />
                 </div>
                 <div className="h-8 w-8 rounded-full bg-muted/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">

@@ -2,9 +2,14 @@ import { testimonialItems } from "@/components/landing/landing-data";
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-8">
+    <section
+      id="testimonials"
+      className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-8"
+    >
       <div className="flex flex-col items-center text-center mb-12">
-        <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">Pilot School Feedback</h2>
+        <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
+          Pilot School Feedback
+        </h2>
         <p className="mt-4 max-w-2xl text-base text-muted-foreground leading-relaxed">
           আমাদের ব্যবহারকারীদের অভিজ্ঞতা ও মতামত।
         </p>
@@ -25,8 +30,12 @@ export function Testimonials() {
                 {item.author.charAt(0)}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-bold text-foreground truncate">{item.author}</p>
-                <p className="text-[11px] font-medium text-muted-foreground truncate">{item.role}</p>
+                <p className="text-sm font-bold text-foreground truncate">
+                  {item.author}
+                </p>
+                <p className="text-[11px] font-medium text-muted-foreground truncate">
+                  {item.role}
+                </p>
               </div>
             </figcaption>
           </figure>

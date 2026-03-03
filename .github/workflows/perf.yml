@@ -49,14 +49,14 @@ jobs:
         run: |
           # Start app in background
           pnpm start &
-          
+
           # Wait for app to be ready
           echo "Waiting for app to start..."
           npx wait-on http://localhost:3000 -t 60000
-          
+
           echo "Running Playwright performance tests..."
           pnpm exec playwright test tests/e2e/perf-regression.spec.ts
-          
+
           echo "Running Lighthouse audits..."
           # Note: Auditing public pages (login) as authenticated audits require session cookies in CI
           pnpm run perf:lighthouse

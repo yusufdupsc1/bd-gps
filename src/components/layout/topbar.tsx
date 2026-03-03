@@ -6,7 +6,13 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { useGovtPrimaryT, useT } from "@/lib/i18n/client";
 import { isGovtPrimaryModeEnabled } from "@/lib/config";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Sidebar } from "./sidebar";
 
 export function TopBar({ session }: { session: Session }) {
@@ -40,8 +46,8 @@ export function TopBar({ session }: { session: Session }) {
           <DialogContent
             className="fixed inset-y-0 left-0 h-full w-[280px] p-0 animate-in slide-in-from-left duration-300 border-none sm:max-w-none shadow-2xl"
             onPointerDownOutside={(e) => {
-              if (e.target instanceof Element && e.target.closest('a')) {
-                setOpen(false)
+              if (e.target instanceof Element && e.target.closest("a")) {
+                setOpen(false);
               }
             }}
           >
@@ -59,7 +65,8 @@ export function TopBar({ session }: { session: Session }) {
             {topLabel}
           </p>
           <p className="truncate text-sm font-bold text-foreground/90 leading-none">
-            {(session.user as { institutionName?: string }).institutionName ?? "Dhadash"}
+            {(session.user as { institutionName?: string }).institutionName ??
+              "Dhadash"}
           </p>
         </div>
       </div>

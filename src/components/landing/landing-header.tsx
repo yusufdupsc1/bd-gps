@@ -13,7 +13,10 @@ export function LandingHeader() {
   return (
     <header className="safe-top sticky top-0 z-50 border-b border-border/40 bg-background/60 backdrop-blur-xl transition-premium">
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-3 group transition-premium">
+        <Link
+          href="/"
+          className="flex items-center gap-3 group transition-premium"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-[0_2px_10px_-3px_rgba(var(--primary),0.5)] transition-transform group-hover:scale-105">
             <ShieldCheck className="h-5 w-5" aria-hidden="true" />
           </div>
@@ -27,7 +30,10 @@ export function LandingHeader() {
           </div>
         </Link>
 
-        <nav aria-label="Marketing" className="hidden items-center gap-8 md:flex">
+        <nav
+          aria-label="Marketing"
+          className="hidden items-center gap-8 md:flex"
+        >
           {["ফিচার", "প্ল্যান", "মতামত"].map((item, i) => (
             <a
               key={i}
@@ -51,7 +57,10 @@ export function LandingHeader() {
           >
             লগইন
           </Link>
-          <Button asChild className="primary-cta group rounded-xl px-6 font-bold shadow-sm transition-premium active:scale-95">
+          <Button
+            asChild
+            className="primary-cta group rounded-xl px-6 font-bold shadow-sm transition-premium active:scale-95"
+          >
             <Link href="/#demo-booking" prefetch={false}>
               {t("demo_cta")}
             </Link>

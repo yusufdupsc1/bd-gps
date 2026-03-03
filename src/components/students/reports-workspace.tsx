@@ -3,9 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import type { MANUAL_TEMPLATE_OPTIONS } from "@/lib/contracts/v1/students-records";
-import {
-  ReportToolbar,
-} from "@/components/students/report-toolbar";
+import { ReportToolbar } from "@/components/students/report-toolbar";
 import {
   ReportPreview,
   type StudentRecordItem,
@@ -33,7 +31,8 @@ function sortGrouped(groups: Record<string, StudentRecordItem[]>) {
 
 export function ReportsWorkspace({ classes }: ReportsWorkspaceProps) {
   const [classFilter, setClassFilter] = useState("ALL_CLASSES");
-  const [selectedStudent, setSelectedStudent] = useState<StudentSearchItem | null>(null);
+  const [selectedStudent, setSelectedStudent] =
+    useState<StudentSearchItem | null>(null);
   const [template, setTemplate] = useState<ManualTemplate>("ID_CARD");
   const [periodType, setPeriodType] = useState<PeriodType>("CUSTOM");
   const [periodLabel, setPeriodLabel] = useState("");
@@ -41,7 +40,9 @@ export function ReportsWorkspace({ classes }: ReportsWorkspaceProps) {
   const [generating, setGenerating] = useState(false);
   const [regeneratingId, setRegeneratingId] = useState<string | null>(null);
   const [previewRecordId, setPreviewRecordId] = useState<string | null>(null);
-  const [groupedRecords, setGroupedRecords] = useState<Record<string, StudentRecordItem[]>>({});
+  const [groupedRecords, setGroupedRecords] = useState<
+    Record<string, StudentRecordItem[]>
+  >({});
 
   const selectedStudentName = useMemo(() => {
     if (!selectedStudent) return "";
@@ -51,9 +52,14 @@ export function ReportsWorkspace({ classes }: ReportsWorkspaceProps) {
   async function loadRecords(studentId: string) {
     setLoadingRecords(true);
     try {
-      const res = await fetch(`/api/v1/students/${studentId}/records?limit=200`);
+      const res = await fetch(
+        `/api/v1/students/${studentId}/records?limit=200`,
+      );
       const json = await res.json();
-      const grouped = (json?.data?.grouped ?? {}) as Record<string, StudentRecordItem[]>;
+      const grouped = (json?.data?.grouped ?? {}) as Record<
+        string,
+        StudentRecordItem[]
+      >;
       setGroupedRecords(sortGrouped(grouped));
     } catch {
       toast.error("Failed to load student records");
@@ -72,7 +78,12 @@ export function ReportsWorkspace({ classes }: ReportsWorkspaceProps) {
     void loadRecords(selectedStudent.id);
   }, [selectedStudent]);
 
-  async function generateRecord(opts?: { regenerate?: boolean; templateOverride?: string; periodTypeOverride?: PeriodType; periodLabelOverride?: string }) {
+  async function generateRecord(opts?: {
+    regenerate?: boolean;
+    templateOverride?: string;
+    periodTypeOverride?: PeriodType;
+    periodLabelOverride?: string;
+  }) {
     if (!selectedStudent) {
       toast.error("Select a student first");
       return;
@@ -81,9 +92,9 @@ export function ReportsWorkspace({ classes }: ReportsWorkspaceProps) {
     const payload = {
       studentId: selectedStudent.id,
       classId: classFilter === "ALL_CLASSES" ? undefined : classFilter,
-      template: (opts?.templateOverride ?? template),
-      periodType: (opts?.periodTypeOverride ?? periodType),
-      periodLabel: (opts?.periodLabelOverride ?? periodLabel),
+      template: opts?.templateOverride ?? template,
+      periodType: opts?.periodTypeOverride ?? periodType,
+      periodLabel: opts?.periodLabelOverride ?? periodLabel,
       regenerate: opts?.regenerate ?? false,
     };
 
@@ -109,7 +120,9 @@ export function ReportsWorkspace({ classes }: ReportsWorkspaceProps) {
         setPreviewRecordId(generated.id);
       }
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Failed to generate PDF");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to generate PDF",
+      );
     } finally {
       setGenerating(false);
     }

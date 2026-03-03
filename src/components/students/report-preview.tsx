@@ -87,7 +87,9 @@ export function ReportPreview({
   );
 
   const activePreviewId = manualPreviewId ?? previewRecordId ?? null;
-  const previewRecord = activePreviewId ? recordById[activePreviewId] ?? null : null;
+  const previewRecord = activePreviewId
+    ? (recordById[activePreviewId] ?? null)
+    : null;
   const previewUrl = useMemo(() => {
     if (!previewRecord) return null;
     if (isDataPdfUrl(previewRecord.fileUrl)) {
@@ -140,25 +142,40 @@ export function ReportPreview({
     <section className="rounded-2xl border border-border/70 bg-card p-4 shadow-sm md:p-5">
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-base font-semibold">Generated Records</h2>
-        {selectedStudentName ? <p className="text-sm text-muted-foreground">{selectedStudentName}</p> : null}
+        {selectedStudentName ? (
+          <p className="text-sm text-muted-foreground">{selectedStudentName}</p>
+        ) : null}
       </div>
 
       {loading ? (
         <p className="text-sm text-muted-foreground">Loading records...</p>
       ) : groups.length === 0 ? (
-        <p className="text-sm text-muted-foreground">No records generated yet.</p>
+        <p className="text-sm text-muted-foreground">
+          No records generated yet.
+        </p>
       ) : (
         <div className="space-y-4">
           {groups.map(([groupKey, items]) => (
-            <div key={groupKey} className="rounded-xl border border-border/80 bg-muted/10 p-3">
-              <p className="mb-3 text-sm font-semibold">{groupKey.replace(":", " - ")}</p>
+            <div
+              key={groupKey}
+              className="rounded-xl border border-border/80 bg-muted/10 p-3"
+            >
+              <p className="mb-3 text-sm font-semibold">
+                {groupKey.replace(":", " - ")}
+              </p>
               <div className="space-y-2">
                 {items.map((record) => (
-                  <div key={record.id} className="flex flex-col gap-2 rounded-lg border border-border/70 bg-card p-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div
+                    key={record.id}
+                    className="flex flex-col gap-2 rounded-lg border border-border/70 bg-card p-3 sm:flex-row sm:items-center sm:justify-between"
+                  >
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-medium">{record.title}</p>
+                      <p className="truncate text-sm font-medium">
+                        {record.title}
+                      </p>
                       <p className="text-xs text-muted-foreground">
-                        {templateLabel(record.recordType)} · {new Date(record.generatedAt).toLocaleString()}
+                        {templateLabel(record.recordType)} ·{" "}
+                        {new Date(record.generatedAt).toLocaleString()}
                       </p>
                       <Badge variant="outline" className="mt-1 text-[10px]">
                         {record.source}
@@ -182,7 +199,10 @@ export function ReportPreview({
                         size="sm"
                         variant="outline"
                         onClick={() => downloadRecord(record)}
-                        disabled={!isDataPdfUrl(record.fileUrl) && !isSupportedUrl(record.fileUrl)}
+                        disabled={
+                          !isDataPdfUrl(record.fileUrl) &&
+                          !isSupportedUrl(record.fileUrl)
+                        }
                       >
                         <Download className="mr-1 h-3.5 w-3.5" /> Download
                       </Button>
@@ -192,7 +212,9 @@ export function ReportPreview({
                         onClick={() => onRegenerate(record)}
                         disabled={regeneratingId === record.id}
                       >
-                        <RefreshCw className={`mr-1 h-3.5 w-3.5 ${regeneratingId === record.id ? "animate-spin" : ""}`} />
+                        <RefreshCw
+                          className={`mr-1 h-3.5 w-3.5 ${regeneratingId === record.id ? "animate-spin" : ""}`}
+                        />
                         Regenerate
                       </Button>
                     </div>
@@ -217,9 +239,13 @@ export function ReportPreview({
       >
         <DialogContent className="w-[min(96vw,74rem)] max-w-6xl p-4 sm:p-5">
           <DialogHeader>
-            <DialogTitle>{previewRecord?.title ?? "Record Preview"}</DialogTitle>
+            <DialogTitle>
+              {previewRecord?.title ?? "Record Preview"}
+            </DialogTitle>
             <DialogDescription>
-              {previewRecord ? `${templateLabel(previewRecord.recordType)} · ${new Date(previewRecord.generatedAt).toLocaleString()}` : ""}
+              {previewRecord
+                ? `${templateLabel(previewRecord.recordType)} · ${new Date(previewRecord.generatedAt).toLocaleString()}`
+                : ""}
             </DialogDescription>
           </DialogHeader>
 
@@ -253,7 +279,11 @@ export function ReportPreview({
                 >
                   Open in new tab
                 </button>
-                <Button type="button" size="sm" onClick={() => downloadRecord(previewRecord)}>
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={() => downloadRecord(previewRecord)}
+                >
                   <Download className="mr-1 h-3.5 w-3.5" /> Download
                 </Button>
               </div>
