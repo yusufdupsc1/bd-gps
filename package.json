@@ -43,6 +43,7 @@
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-toast": "^1.2.4",
     "@radix-ui/react-tooltip": "^1.1.6",
+    "@tailwindcss/postcss": "^4.0.9",
     "@tanstack/react-query": "^5.62.8",
     "@tanstack/react-table": "^8.20.5",
     "bcryptjs": "^2.4.3",
@@ -61,13 +62,14 @@
     "recharts": "^2.15.0",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^4.0.9",
     "tailwindcss-animate": "^1.0.7",
+    "uploadthing": "^6.10.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "15.5.12",
     "@playwright/test": "^1.49.1",
-    "@tailwindcss/postcss": "^4.0.9",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
@@ -79,7 +81,6 @@
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.10",
     "prisma": "^6.19.2",
-    "tailwindcss": "^4.0.9",
     "tsx": "^4.19.2",
     "typescript": "^5.8.3",
     "vitest": "^3.0.4"
