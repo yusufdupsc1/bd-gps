@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   Users,
   UserCheck,
@@ -19,6 +20,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
   const teacherLabel = isGovtPrimaryModeEnabled()
     ? "Assistant Teachers"
     : "Teachers";
+
   const cards = [
     {
       label: "Total Students",
@@ -26,6 +28,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
       icon: Users,
       color: "blue",
       trend: "+2% from last wk",
+      href: "/dashboard/students",
     },
     {
       label: teacherLabel,
@@ -33,6 +36,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
       icon: UserCheck,
       color: "emerald",
       trend: "All sessions active",
+      href: "/dashboard/teachers",
     },
     {
       label: "Present Today",
@@ -40,6 +44,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
       icon: ClipboardCheck,
       color: "purple",
       trend: "Synced 5m ago",
+      href: "/dashboard/attendance",
     },
     {
       label: "Revenue Tracker",
@@ -48,6 +53,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
       color: "amber",
       subtitle: `${stats.pendingFees.count} pending invoices`,
       trend: "Awaiting clearance",
+      href: "/dashboard/finance",
     },
   ];
 
@@ -63,9 +69,10 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
       {cards.map((card) => {
         const Icon = card.icon;
         return (
-          <article
+          <Link
             key={card.label}
-            className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-border/40 bg-card/60 backdrop-blur-sm p-6 shadow-sm transition-premium hover:shadow-xl hover:-translate-y-1 premium-shadow"
+            href={card.href}
+            className="group relative flex flex-col justify-between overflow-hidden rounded-[2rem] border border-border/40 bg-card/60 backdrop-blur-sm p-6 shadow-sm transition-premium hover:shadow-xl hover:-translate-y-1 premium-shadow cursor-pointer"
           >
             {/* Background Accent */}
             <div
@@ -121,7 +128,7 @@ export function StatsGrid({ stats }: { stats: StatsData }) {
                 </span>
               </div>
             </div>
-          </article>
+          </Link>
         );
       })}
     </section>

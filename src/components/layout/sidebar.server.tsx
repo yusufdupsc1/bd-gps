@@ -297,7 +297,10 @@ export async function SidebarServer({ session }: { session: Session }) {
   return (
     <aside className="hidden h-svh w-[230px] flex-shrink-0 flex-col border-r border-border/80 bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 lg:flex xl:w-[250px]">
       {/* Brand */}
-      <div className="flex items-center gap-2.5 h-14 px-4 border-b border-border">
+      <Link
+        href="/dashboard"
+        className="flex items-center gap-2.5 h-14 px-4 border-b border-border hover:bg-muted/50 transition-colors"
+      >
         <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center flex-shrink-0 shadow-sm">
           <ShieldCheck className="h-4 w-4 text-primary-foreground" />
         </div>
@@ -307,7 +310,7 @@ export async function SidebarServer({ session }: { session: Session }) {
         <Badge variant="outline" className="ml-auto text-[10px] font-mono py-0">
           v1.0
         </Badge>
-      </div>
+      </Link>
 
       {/* Institution badge */}
       <div className="px-3 py-2.5 border-b border-border">
