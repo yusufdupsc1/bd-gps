@@ -337,7 +337,7 @@ export async function SidebarServer({ session }: { session: Session }) {
       {/* Navigation */}
       <nav
         aria-label="Primary"
-        className="flex-1 space-y-4 overflow-y-auto px-2 py-3"
+        className="flex-1 space-y-3 overflow-hidden px-2 py-3"
       >
         {NAV_SECTIONS.map((section) => {
           const visibleItems = section.items.filter(

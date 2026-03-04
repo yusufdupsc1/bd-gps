@@ -88,8 +88,7 @@ export async function QuickActions() {
   const isBangla = locale === "bn";
 
   return (
-    <section className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-primary/15 bg-card/95 p-4 shadow-sm sm:p-6">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary via-accent to-primary" />
+    <section className="relative flex h-full flex-col overflow-hidden rounded-3xl bg-card/95 p-4 shadow-sm sm:p-6">
       <div className="flex items-center justify-between mb-4">
         <div className="flex flex-col">
           <h2 className="text-sm font-extrabold uppercase tracking-[0.14em] text-foreground/80">
@@ -100,12 +99,13 @@ export async function QuickActions() {
           href="/dashboard/settings"
           className="flex items-center gap-1 text-[10px] font-bold uppercase leading-none tracking-widest text-muted-foreground transition-colors hover:text-primary"
         >
-          {isBangla ? "সব দেখুন" : "View All"} <ArrowRight className="h-3 w-3" />
+          {isBangla ? "সব দেখুন" : "View All"}{" "}
+          <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
 
       <div
-        className="grid flex-1 grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3"
+        className="flex flex-1 flex-wrap gap-2 sm:gap-3"
         data-testid="quick-actions-grid"
       >
         {actions.map((action) => {
@@ -115,7 +115,7 @@ export async function QuickActions() {
             <Link
               key={action.href}
               href={action.href}
-              className="group/action flex min-h-24 flex-col items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-background/70 px-1.5 py-2 transition-colors hover:border-primary/30 hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10"
+              className="group/action flex min-h-24 flex-[1_1_calc(50%-0.25rem)] flex-col items-center justify-center gap-1.5 rounded-xl border border-border/80 bg-background/70 px-1.5 py-2 transition-colors hover:border-primary/30 hover:bg-gradient-to-r hover:from-primary/10 hover:to-accent/10 sm:flex-[1_1_calc(33.333%-0.5rem)] lg:flex-[1_1_calc(25%-0.6rem)] xl:flex-[1_1_calc(20%-0.6rem)]"
               data-testid={`quick-action-${action.label.en.toLowerCase().replace(/\s+/g, "-")}`}
             >
               <div
