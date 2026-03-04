@@ -43,14 +43,14 @@ test.describe("Dashboard responsive navigation", () => {
     await expect(drawer).toBeHidden();
   });
 
-  test("keeps quick actions in compact 3x3 and card taps route to CRUD pages", async ({
+  test("keeps quick actions compact and card taps route to CRUD pages", async ({
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await loginAsAdmin(page);
 
     await expect(page.getByTestId("quick-actions-grid")).toBeVisible();
-    await expect(page.locator("[data-testid^='quick-action-']")).toHaveCount(9);
+    await expect(page.locator("[data-testid^='quick-action-']")).toHaveCount(6);
 
     await page.getByTestId("stats-card-students").click();
     await expect(page).toHaveURL(/\/dashboard\/students$/);

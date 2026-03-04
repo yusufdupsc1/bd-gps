@@ -5,39 +5,45 @@ interface RevenueRow {
   _sum: { amount: number | null };
 }
 
-export function RevenueChart({ data }: { data: RevenueRow[] }) {
+interface RevenueChartProps {
+  data: RevenueRow[];
+  isBangla: boolean;
+}
+
+export function RevenueChart({ data, isBangla }: RevenueChartProps) {
   return (
-    <section className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border/50 bg-card p-4 shadow-sm transition-colors hover:border-border sm:p-6">
-      <div className="absolute inset-0 bg-gradient-to-bl from-amber-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <h2 className="relative z-10 mb-6 flex items-center justify-between gap-2 text-lg font-semibold tracking-tight">
-        Revenue (This Year)
-        <span className="rounded-full bg-amber-500/10 px-2 py-1 text-[11px] font-medium text-amber-600 sm:px-2.5 sm:text-xs">
+    <section className="flex h-full flex-col rounded-2xl border border-border bg-card p-4 shadow-sm sm:p-5">
+      <h2 className="mb-4 flex items-center justify-between gap-2 text-xl font-semibold">
+        {isBangla ? "ফি সংগ্রহ (এই বছর)" : "Revenue (This Year)"}
+        <span className="rounded-full border border-amber-100 bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-600">
           YTD
         </span>
       </h2>
-      <div className="space-y-3 relative z-10 flex-1 flex flex-col justify-center">
+
+      <div className="flex-1 space-y-2">
         {data.length ? (
           data.map((row, idx) => (
             <div
               key={`${row.paidAt.toISOString()}-${idx}`}
-              className="flex items-center justify-between rounded-xl bg-muted/30 px-4 py-3 text-sm hover:bg-muted/60 transition-colors border border-border/40"
+              className="flex items-center justify-between rounded-xl border border-border bg-muted/20 px-3 py-2.5"
             >
-              <span className="font-medium text-muted-foreground">
+              <span className="text-sm text-muted-foreground">
                 {formatDate(row.paidAt)}
               </span>
-              <span className="font-bold text-foreground">
-                {formatCurrency(Number(row._sum.amount ?? 0))}
+              <span className="text-sm font-semibold">
+                {formatCurrency(
+                  Number(row._sum.amount ?? 0),
+                  "BDT",
+                  isBangla ? "bn-BD" : "en-US",
+                )}
               </span>
             </div>
           ))
         ) : (
-          <div className="h-full flex flex-col items-center justify-center text-center p-6 border border-dashed border-border rounded-xl bg-muted/10">
-            <p className="text-sm font-medium text-muted-foreground">
-              No payments recorded yet.
-            </p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Invoices will appear here.
-            </p>
+          <div className="flex h-full min-h-32 items-center justify-center rounded-xl border border-dashed border-border bg-muted/10 p-4 text-center text-sm text-muted-foreground">
+            {isBangla
+              ? "এখনও কোনো পেমেন্ট রেকর্ড হয়নি"
+              : "No payments recorded yet."}
           </div>
         )}
       </div>
