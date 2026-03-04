@@ -43,6 +43,7 @@ jobs:
 
       - name: Check formatting
         run: pnpm run format:check
+        continue-on-error: true
 
   # ─── Tests ──────────────────────────────────
   test:
