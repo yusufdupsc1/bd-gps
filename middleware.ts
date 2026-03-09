@@ -40,12 +40,6 @@ const AUTH_SECRETS = [
 ].filter((secret): secret is string => Boolean(secret));
 const AUTH_SECRET = AUTH_SECRETS.length > 1 ? AUTH_SECRETS : AUTH_SECRETS[0];
 const AUTH_DEBUG = process.env.AUTH_DEBUG === "1";
-const SESSION_COOKIE_CANDIDATES = [
-  "__Secure-authjs.session-token",
-  "authjs.session-token",
-  "__Secure-next-auth.session-token",
-  "next-auth.session-token",
-];
 
 function parseLocalePrefix(pathname: string): {
   locale: SupportedLocale | null;
@@ -91,13 +85,20 @@ function resolveLocale(req: NextRequest) {
   return "bn";
 }
 
-function withLocaleCookie(response: NextResponse, locale: SupportedLocale) {
-  response.cookies.set(LOCALE_COOKIE, locale, {
-    httpOnly: false,
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 30,
-    path: "/",
-  });
+function withLocaleCookie(
+  req: NextRequest,
+  response: NextResponse,
+  locale: SupportedLocale,
+) {
+  const current = req.cookies.get(LOCALE_COOKIE)?.value;
+  if (current !== locale) {
+    response.cookies.set(LOCALE_COOKIE, locale, {
+      httpOnly: false,
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 30,
+      path: "/",
+    });
+  }
   return response;
 }
 
@@ -133,7 +134,7 @@ export default async function middleware(req: NextRequest) {
   if (!hasLocalePrefix && !isAssetPath && !isApiPath) {
     const redirectUrl = req.nextUrl.clone();
     redirectUrl.pathname = withLocalePrefix(pathname, locale, true);
-    return withLocaleCookie(NextResponse.redirect(redirectUrl), locale);
+    return withLocaleCookie(req, NextResponse.redirect(redirectUrl), locale);
   }
 
   const forward = () => {
@@ -146,7 +147,7 @@ export default async function middleware(req: NextRequest) {
           })()
         : NextResponse.next();
     response.headers.set("x-request-id", requestId);
-    return withLocaleCookie(response, locale);
+    return withLocaleCookie(req, response, locale);
   };
 
   // 1. Allow static files and Next.js internals
@@ -165,13 +166,27 @@ export default async function middleware(req: NextRequest) {
   const isSecureCookie =
     req.nextUrl.protocol === "https:" ||
     req.headers.get("x-forwarded-proto") === "https";
-  const presentCookies = SESSION_COOKIE_CANDIDATES.filter((cookieName) =>
+
+  const preferredCookieOrder = isSecureCookie
+    ? [
+        "__Secure-authjs.session-token",
+        "__Secure-next-auth.session-token",
+        "authjs.session-token",
+        "next-auth.session-token",
+      ]
+    : [
+        "authjs.session-token",
+        "next-auth.session-token",
+        "__Secure-authjs.session-token",
+        "__Secure-next-auth.session-token",
+      ];
+
+  const presentCookies = preferredCookieOrder.filter((cookieName) =>
     Boolean(req.cookies.get(cookieName)?.value),
   );
 
   let token = null;
-  for (const cookieName of SESSION_COOKIE_CANDIDATES) {
-    if (!req.cookies.get(cookieName)?.value) continue;
+  for (const cookieName of presentCookies) {
     token = await getToken({
       req,
       secret: AUTH_SECRET,
@@ -181,19 +196,13 @@ export default async function middleware(req: NextRequest) {
     if (token) break;
   }
 
-  // Defensive fallback when proxy headers/cookie prefixes are inconsistent.
+  // Fallback for proxy/header inconsistency.
   if (!token) {
-    token =
-      (await getToken({
-        req,
-        secret: AUTH_SECRET,
-        secureCookie: isSecureCookie,
-      })) ??
-      (await getToken({
-        req,
-        secret: AUTH_SECRET,
-        secureCookie: !isSecureCookie,
-      }));
+    token = await getToken({
+      req,
+      secret: AUTH_SECRET,
+      secureCookie: isSecureCookie,
+    });
   }
 
   if (!token) {
@@ -217,7 +226,7 @@ export default async function middleware(req: NextRequest) {
         "callbackUrl",
         encodeURIComponent(withLocalePrefix(pathname, locale, hasLocalePrefix)),
       );
-      return withLocaleCookie(NextResponse.redirect(loginUrl), locale);
+      return withLocaleCookie(req, NextResponse.redirect(loginUrl), locale);
     }
     return forward();
   }
@@ -245,6 +254,7 @@ export default async function middleware(req: NextRequest) {
 
   if (isSuperAdminRoute && userRole !== "SUPER_ADMIN") {
     return withLocaleCookie(
+      req,
       NextResponse.redirect(
         new URL(
           withLocalePrefix("/dashboard", locale, hasLocalePrefix),
@@ -257,6 +267,7 @@ export default async function middleware(req: NextRequest) {
 
   if (isAdminRoute && !isAdmin) {
     return withLocaleCookie(
+      req,
       NextResponse.redirect(
         new URL(
           withLocalePrefix("/dashboard", locale, hasLocalePrefix),
@@ -279,6 +290,7 @@ export default async function middleware(req: NextRequest) {
         hasLocalePrefix,
       );
       return withLocaleCookie(
+        req,
         NextResponse.redirect(new URL(fallbackPath, req.url)),
         locale,
       );
@@ -308,7 +320,7 @@ export default async function middleware(req: NextRequest) {
     response.headers.set("x-institution-name", token.institutionName as string);
   }
 
-  return withLocaleCookie(response, locale);
+  return withLocaleCookie(req, response, locale);
 }
 
 export const config = {
