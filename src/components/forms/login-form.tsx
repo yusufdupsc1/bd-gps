@@ -778,8 +778,8 @@ export function LoginForm({
                   setValue("institution", "bd-gps", {
                     shouldValidate: true,
                   });
-                  setValue("email", "yusuf_ali", { shouldValidate: true });
-                  setValue("password", "yusuf_ali", { shouldValidate: true });
+                  setValue("email", "admin@school.edu", { shouldValidate: true });
+                  setValue("password", "admin@school.edu", { shouldValidate: true });
                   setFormError(null);
                   toast.success("Demo credentials applied.");
                 }}
@@ -933,9 +933,9 @@ export function LoginForm({
         {false ? (
           <div className="space-y-1 font-mono text-sm text-foreground/80">
             <div className="flex justify-between items-center group">
-              <span className="max-w-[65%] truncate">yusuf_ali</span>
+              <span className="max-w-[65%] truncate">admin@school.edu</span>
               <span className="text-xs text-muted-foreground transition-colors group-hover:text-[#006a4e]">
-                yusuf_ali
+                admin@school.edu
               </span>
             </div>
           </div>
