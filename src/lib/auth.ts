@@ -5,7 +5,6 @@ import * as bcrypt from "bcryptjs";
 
 export const runtime = "nodejs";
 
-// Simple demo users
 const DEMO_USERS = [
   { email: "admin@school.edu", password: "admin123", name: "Admin", role: "ADMIN" },
   { email: "principal@school.edu", password: "principal123", name: "Principal", role: "PRINCIPAL" },
@@ -16,28 +15,43 @@ const DEMO_USERS = [
 
 async function setupDemoUser(email: string, password: string, name: string, role: string) {
   // Ensure institution exists
-  const institution = await db.institution.upsert({
-    where: { slug: "bd-gps" },
-    update: { isActive: true },
-    create: {
-      slug: "bd-gps",
-      name: "BD-GPS Demo School",
-      email: "admin@school.edu",
-      city: "Dhaka",
-      country: "BD",
-      timezone: "Asia/Dhaka",
-      currency: "BDT",
-      isActive: true,
-    },
-  });
+  let institution = await db.institution.findUnique({ where: { slug: "bd-gps" } });
+  
+  if (!institution) {
+    institution = await db.institution.create({
+      data: {
+        slug: "bd-gps",
+        name: "BD-GPS Demo School",
+        email: "admin@school.edu",
+        city: "Dhaka",
+        country: "BD",
+        timezone: "Asia/Dhaka",
+        currency: "BDT",
+        isActive: true,
+      },
+    });
+  }
 
-  // Hash password and create/update user
+  // Hash password
   const hashed = await bcrypt.hash(password, 12);
-  const user = await db.user.upsert({
-    where: { email },
-    update: { password: hashed, role, name, isActive: true, approvalStatus: "APPROVED", institutionId: institution.id },
-    create: { email, password: hashed, role, name, isActive: true, approvalStatus: "APPROVED", institutionId: institution.id, emailVerified: new Date() },
-  });
+  
+  // Create or update user
+  let user = await db.user.findUnique({ where: { email } });
+  
+  if (!user) {
+    user = await db.user.create({
+      data: {
+        email,
+        name,
+        password: hashed,
+        role,
+        isActive: true,
+        approvalStatus: "APPROVED",
+        emailVerified: new Date(),
+        institutionId: institution.id,
+      },
+    });
+  }
 
   return { ...user, institution: { name: institution.name, slug: institution.slug } };
 }
@@ -48,24 +62,48 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: { signIn: "/auth/login" },
   providers: [
     Credentials({
+      id: "credentials",
       name: "Login",
+      type: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        email: { label: "Email", type: "email", placeholder: "email@example.com" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const email = (credentials?.email as string)?.trim().toLowerCase();
-        const password = credentials?.password as string;
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
-        if (!email || !password) return null;
+        const email = String(credentials.email).trim().toLowerCase();
+        const password = String(credentials.password);
 
-        const demo = DEMO_USERS.find(u => u.email === email && u.password === password);
-        if (!demo) return null;
+        // Find demo user
+        const demoUser = DEMO_USERS.find(u => u.email.toLowerCase() === email);
+        
+        if (!demoUser) {
+          return null;
+        }
 
+        // Verify password
+        if (demoUser.password !== password) {
+          return null;
+        }
+
+        // Setup user in database
         try {
-          const user = await setupDemoUser(demo.email, demo.password, demo.name, demo.role);
-          return { id: user.id, email: user.email, name: user.name, role: user.role, institutionId: user.institutionId, institutionName: "BD-GPS Demo School", institutionSlug: "bd-gps" };
-        } catch {
+          const user = await setupDemoUser(demoUser.email, demoUser.password, demoUser.name, demoUser.role);
+          
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+            institutionId: user.institutionId,
+            institutionName: user.institution.name,
+            institutionSlug: user.institution.slug,
+          };
+        } catch (error) {
+          console.error("Auth error:", error);
           return null;
         }
       },
@@ -74,20 +112,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        (token as any).role = (user as any).role;
-        (token as any).institutionId = (user as any).institutionId;
-        (token as any).institutionName = (user as any).institutionName;
-        (token as any).institutionSlug = (user as any).institutionSlug;
+        token.role = (user as any).role;
+        token.institutionId = (user as any).institutionId;
+        token.institutionName = (user as any).institutionName;
+        token.institutionSlug = (user as any).institutionSlug;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = token.sub;
-        (session.user as any).role = (token as any).role;
-        (session.user as any).institutionId = (token as any).institutionId;
-        (session.user as any).institutionName = (token as any).institutionName;
-        (session.user as any).institutionSlug = (token as any).institutionSlug;
+        (session.user as any).id = token.sub as string;
+        (session.user as any).role = token.role as string;
+        (session.user as any).institutionId = token.institutionId as string;
+        (session.user as any).institutionName = token.institutionName as string;
+        (session.user as any).institutionSlug = token.institutionSlug as string;
       }
       return session;
     },
