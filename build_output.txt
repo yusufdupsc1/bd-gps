@@ -1,6 +1,0 @@
-▲ Next.js 16.1.6 (webpack)
-- Environments: .env.local, .env
-- Experiments (use with caution):
-  · optimizePackageImports
-
-  Creating an optimized production build ...
